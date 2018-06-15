@@ -30,52 +30,58 @@ export const TOGGLE_MOVIE_LIKE = gql`
   }
 `;
 
-export default ({
-  movie: { title, poster, overview, popularity, score, isLiked, id },
-}) => (
+export default ({ movie, user }) => (
   <Mutation
     mutation={TOGGLE_MOVIE_LIKE}
     update={(cache, { data: { toggleLike } }) => {
       const { likes } = cache.readQuery({ query: GET_LIKED_MOVIES });
+      // if the movie was already liked, remove.
+      // if not, add to list of likes
+      const newLikes = likes.find(l => l.id === id)
+        ? likes.filter(like => like.id !== toggleLike.id)
+        : [...likes, movie];
       cache.writeQuery({
         query: GET_LIKED_MOVIES,
-        data: { likes: likes.filter(like => like.id !== toggleLike.id) },
+        data: { likes: newLikes },
       });
     }}
   >
-    {toggleMovieLike => (
-      <div style={styles.container}>
-        {poster ? (
-          <img src={poster} style={styles.image} alt={title} />
-        ) : (
-          <p style={styles.image}>🎬 Poster coming soon</p>
-        )}
-        <div style={styles.content}>
-          <h3 style={styles.title}>{title}</h3>
-          <p style={styles.overview}>{overview}</p>
-          <p>
-            {score > 0
-              ? `Rating: ${score}/10 ${score > 5 ? '👏' : '👎'}`
-              : 'Not rated yet!'}
-          </p>
-          <Heart
-            active={isLiked}
-            onClick={() =>
-              toggleMovieLike({
-                variables: { id },
-                optimisticResponse: {
-                  toggleLike: {
-                    __typename: 'Movie',
-                    id,
-                    isLiked: !isLiked,
+    {toggleMovieLike => {
+      const { title, poster, overview, popularity, score, isLiked, id } = movie;
+      return (
+        <div style={styles.container}>
+          {poster ? (
+            <img src={poster} style={styles.image} alt={title} />
+          ) : (
+            <p style={styles.image}>🎬 Poster coming soon</p>
+          )}
+          <div style={styles.content}>
+            <h3 style={styles.title}>{title}</h3>
+            <p style={styles.overview}>{overview}</p>
+            <p>
+              {score > 0
+                ? `Rating: ${score}/10 ${score > 5 ? '👏' : '👎'}`
+                : 'Not rated yet!'}
+            </p>
+            <Heart
+              active={isLiked}
+              onClick={() =>
+                toggleMovieLike({
+                  variables: { id },
+                  optimisticResponse: {
+                    toggleLike: {
+                      __typename: 'Movie',
+                      id,
+                      isLiked: !isLiked,
+                    },
                   },
-                },
-              })
-            }
-          />
+                })
+              }
+            />
+          </div>
         </div>
-      </div>
-    )}
+      );
+    }}
   </Mutation>
 );
 
