@@ -44,7 +44,7 @@ describe('MovieTile', () => {
 
     comp.find(Heart).simulate('click');
 
-    await wait(100);
+    await wait();
     comp.update();
 
     // check the cache to see if the new like was added

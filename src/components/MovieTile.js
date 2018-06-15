@@ -37,7 +37,7 @@ export default ({ movie, user }) => (
       const { likes } = cache.readQuery({ query: GET_LIKED_MOVIES });
       // if the movie was already liked, remove.
       // if not, add to list of likes
-      const newLikes = likes.find(l => l.id === id)
+      const newLikes = likes.find(l => l.id === movie.id)
         ? likes.filter(like => like.id !== toggleLike.id)
         : [...likes, movie];
       cache.writeQuery({
