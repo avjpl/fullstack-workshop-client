@@ -17,19 +17,19 @@ import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const IS_LOGGED_IN = gql`
+export const IS_LOGGED_IN = gql`
   {
     isLoggedIn @client
   }
 `;
 
-const LOGIN_USER = gql`
+export const LOGIN_USER = gql`
   mutation loginUser($email: String!) {
     login(email: $email)
   }
 `;
 
-const Form = ({ isLoggedIn, login, logout }) => {
+export const Form = ({ isLoggedIn, login, logout }) => {
   let input = React.createRef();
 
   return (
@@ -62,7 +62,7 @@ export default class Login extends Component {
 
   render = () => (
     <Query query={IS_LOGGED_IN}>
-      {({ data: { isLoggedIn }, client }) => (
+      {({ data: { isLoggedIn } = {}, client }) => (
         <Mutation
           mutation={LOGIN_USER}
           onCompleted={({ login }) => {

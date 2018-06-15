@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter renders 1`] = `
+Array [
+  <p
+    style={
+        Object {
+            "display": "inline",
+          }
+    }
+>
+    Show:
+</p>,
+  <select
+    onChange={[Function]}
+    style={
+        Object {
+            "marginBottom": 9,
+          }
+    }
+    value={undefined}
+>
+    <option
+        value="POPULARITY"
+    >
+        Popular Movies
+    </option>
+    <option
+        value="RELEASE_DATE"
+    >
+        New Movies
+    </option>
+    <option
+        value="LIKES"
+    >
+        Liked Movies
+    </option>
+</select>,
+]
+`;

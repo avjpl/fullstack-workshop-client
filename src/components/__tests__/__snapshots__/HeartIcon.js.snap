@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Heart Icon renders 1`] = `
+<svg
+  height="40"
+  onClick={undefined}
+  viewBox="0 0 30 30"
+  width="40"
+>
+  <path
+    d="M23.48 7.9a5.1 5.1 0 0 0-7.39 0l-1 1-1-1a5.1 5.1 0 0 0-7.39 0 5.53 5.53 0 0 0 0 7.64l1 1 7.39 7.64 7.39-7.64 1-1a5.53 5.53 0 0 0 0-7.64z"
+    fill="transparent"
+    stroke="red"
+    strokeWidth={1.5}
+  />
+</svg>
+`;

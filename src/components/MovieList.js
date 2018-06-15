@@ -39,9 +39,10 @@ const MovieInfoFragment = gql`
   }
 `;
 
-const GET_MOVIES = gql`
+export const GET_MOVIES = gql`
   query movieList($sort: SORT_TYPE, $page: Int!) {
     movies(sort: $sort, page: $page) {
+      __typename
       ...MovieInfo
     }
   }
@@ -51,6 +52,7 @@ const GET_MOVIES = gql`
 export const GET_LIKED_MOVIES = gql`
   {
     likes {
+      __typename
       ...MovieInfo
     }
   }

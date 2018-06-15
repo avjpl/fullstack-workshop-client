@@ -21,7 +21,7 @@ import gql from 'graphql-tag';
 import { GET_LIKED_MOVIES } from './MovieList';
 import Heart from './HeartIcon';
 
-const TOGGLE_MOVIE_LIKE = gql`
+export const TOGGLE_MOVIE_LIKE = gql`
   mutation toggleMovieLike($id: ID!) {
     toggleLike(id: $id) {
       id
@@ -32,7 +32,6 @@ const TOGGLE_MOVIE_LIKE = gql`
 
 export default ({
   movie: { title, poster, overview, popularity, score, isLiked, id },
-  user,
 }) => (
   <Mutation
     mutation={TOGGLE_MOVIE_LIKE}
