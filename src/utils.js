@@ -9,6 +9,7 @@ export const mockMovie = {
   poster: 'https://dog.ceo/api/breeds/image/random',
   cast: [
     {
+      __typename: 'Cast',
       name: 'Jane',
       id: 1,
       photo: 'https://dog.ceo/api/breeds/image/random',

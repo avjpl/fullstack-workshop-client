@@ -24,12 +24,14 @@ describe('MovieTile', () => {
     const mocks = [
       {
         request: { query: TOGGLE_MOVIE_LIKE, variables: { id: 1 } },
-        result: { data: { toggleLike: { id: 1, isLiked: true } } },
+        result: {
+          data: { toggleLike: { __typename: 'Movie', id: 1, isLiked: true } },
+        },
       },
     ];
 
     const comp = mount(
-      <MockedProvider mocks={mocks}>
+      <MockedProvider mocks={mocks} addTypename={true}>
         <MovieTile movie={mockMovie} />
       </MockedProvider>,
     );
@@ -42,7 +44,8 @@ describe('MovieTile', () => {
       data: { likes: [] },
     });
 
-    comp.find(Heart).simulate('click');
+    const heart = comp.find(Heart);
+    heart.simulate('click');
 
     await wait();
     comp.update();
