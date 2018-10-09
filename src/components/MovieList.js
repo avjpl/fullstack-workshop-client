@@ -35,6 +35,7 @@ const MovieInfoFragment = gql`
       name
       id
       photo
+      character
     }
   }
 `;
