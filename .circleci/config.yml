@@ -1,0 +1,23 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+
+    steps:
+      - checkout
+
+      - run: npm ci
+      # - run: npm test
+
+     # This will authenticate using the `ENGINE_API_KEY` environment
+      - run: npx apollo queries:check
+
+      # When running on the 'master' branch, publish the latest version
+      # of the schema to Apollo Engine.
+      # in practice this should be the deploy branch
+      - run: |
+          if [ "${CIRCLE_BRANCH}" == "jbaxleyiii/operation-registry" ]; then
+            npx apollo queries:register --clientName="web"
+          fi
