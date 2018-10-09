@@ -11,9 +11,8 @@ jobs:
       - run: npm ci
       # - run: npm test
 
-     # This will authenticate using the `ENGINE_API_KEY` environment
-     # XXX turn this back on after client directives are removed from check command
-      # - run: npx apollo queries:check
+      # This will authenticate using the `ENGINE_API_KEY` environment
+      - run: npx apollo queries:check
 
       # When running on the 'master' branch, publish the latest version
       # of the schema to Apollo Engine.
