@@ -18,7 +18,7 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const IS_LOGGED_IN = gql`
-  {
+  query GetUser {
     isLoggedIn @client
   }
 `;

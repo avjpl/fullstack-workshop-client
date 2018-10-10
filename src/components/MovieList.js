@@ -15,12 +15,12 @@ PART 2:
 2. HINT: Each page has 20 items. This will help you when you calculate the next page number
 */
 
-import React, { Component } from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import React, { Component } from 'react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
-import MovieTile from "./MovieTile";
-import Filter from "./Filter";
+import MovieTile from './MovieTile';
+import Filter from './Filter';
 
 const MovieInfoFragment = gql`
   fragment MovieInfo on Movie {
@@ -59,19 +59,19 @@ export const GET_LIKED_MOVIES = gql`
 `;
 
 export default class MovieList extends Component {
-  state = { sort: "POPULARITY" };
+  state = { sort: 'POPULARITY' };
 
   onFilterChange = sort => this.setState({ sort });
 
   render = () => {
     return (
       <Query
-        query={this.state.sort !== "LIKES" ? GET_MOVIES : GET_LIKED_MOVIES}
+        query={this.state.sort !== 'LIKES' ? GET_MOVIES : GET_LIKED_MOVIES}
         fetchPolicy={
-          this.state.sort !== "LIKES" ? "cache-first" : "cache-and-network"
+          this.state.sort !== 'LIKES' ? 'cache-first' : 'cache-and-network'
         }
         variables={
-          this.state.sort !== "LIKES"
+          this.state.sort !== 'LIKES'
             ? {
                 showLikes: false,
                 page: 1,
@@ -81,7 +81,7 @@ export default class MovieList extends Component {
         }
       >
         {({ loading, error, data, fetchMore }) => {
-          if (loading) return "Loading...";
+          if (loading) return 'Loading...';
           if (error) return `${error}`;
 
           return (
