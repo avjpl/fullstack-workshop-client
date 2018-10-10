@@ -18,10 +18,11 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "apollo": "^1.10.0-register.1",
+    "dotenv": "^6.1.0",
     "husky": "^1.1.1",
     "prettier": "^1.14.3",
-    "pretty-quick": "^1.7.0",
-    "apollo": "^1.10.0-register.1"
+    "pretty-quick": "^1.7.0"
   },
   "husky": {
     "hooks": {
