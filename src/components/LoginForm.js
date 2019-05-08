@@ -16,8 +16,14 @@ TODO: Local state management:
 */
 
 import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
+
+const IS_LOGGED_IN = gql`
+  query IsUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
 
 const LOGIN_USER = gql`
   mutation loginUser($email: String!) {
@@ -51,14 +57,31 @@ const Form = ({ isLoggedIn, login, logout }) => {
 };
 
 export default class Login extends Component {
-  logout = () => {
-    // fill in this method for the local state exercises
+  logout = client => {
+    client.writeData({ data: { isLoggedIn: false } });
+    localStorage.clear();
   };
 
   render = () => (
-    <Mutation mutation={LOGIN_USER}>
-      {login => <Form login={login} logout={this.logout} isLoggedIn={false} />}
-    </Mutation>
+    <Query query={IS_LOGGED_IN}>
+      {({ data: { isLoggedIn }, client }) => (
+        <Mutation
+          mutation={LOGIN_USER}
+          onCompleted={({ login }) => {
+            localStorage.setItem("token", login);
+            client.writeData({ data: { isLoggedIn: true } });
+          }}
+        >
+          {login => (
+            <Form
+              login={login}
+              logout={() => this.logout(client)}
+              isLoggedIn={isLoggedIn}
+            />
+          )}
+        </Mutation>
+      )}
+    </Query>
   );
 }
 
