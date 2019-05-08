@@ -50,7 +50,7 @@ export default class Login extends Component {
   render = () => (
     <Form
       login={() => {
-        // fill in this method for the local state exercises
+        // fill in this method for the login mutation exercises
       }}
       logout={this.logout}
       isLoggedIn={false}
