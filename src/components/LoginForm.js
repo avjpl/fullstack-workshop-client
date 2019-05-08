@@ -1,21 +1,23 @@
 /*
-TODO: Creating a mutation component (part 1):
+TODO: Creating a Mutation component:
 
-1. Create a Mutation component to login the user.
-2. You should wrap the Form component in a mutation component and pass the login function down as a prop.
-3. Use the onCompleted prop on Mutation to set the user's token in localStorage
+1. Create a Mutation component to login the user by wrapping the Form component.
+2. Pass the login function down as a prop to Form.
+3. Use the onCompleted prop on Mutation to console.log whether the mutation completed successfully.
+
+Note: We will be wiring up the rest of the login workflow in the next exercises.
+
+TODO: Local state management:
+
+1. Create an IS_LOGGED_IN query to determine whether the user is logged in.
+2. Wrap the login Mutation component with your Query component. Pass the result of the query to the Form component.
+3. When the login mutation completes, set the login token to localStorage under a key called "token". Write isLoggedIn to the cache directly.
+4. When the user logs out, fill in the this.logout method by writing isLoggedIn to the cache directly and clearing local storage.
 */
 
-/*
-TODO: Apollo Link State:
-
-1. Refactor the setState calls to client.writeData calls to set whether the user is logged in
-2. Query whether the user is logged in one level above the Mutation component.
-*/
-
-import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import React, { Component } from "react";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 
 const LOGIN_USER = gql`
   mutation loginUser($email: String!) {
@@ -36,7 +38,7 @@ const Form = ({ isLoggedIn, login, logout }) => {
             e.preventDefault();
             const email = input.current.value;
             login({
-              variables: { email },
+              variables: { email }
             });
           }}
         >
@@ -49,39 +51,17 @@ const Form = ({ isLoggedIn, login, logout }) => {
 };
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-
-    const token = localStorage.getItem('token');
-
-    this.state = {
-      isLoggedIn: !!token,
-    };
-  }
-
   logout = () => {
-    this.setState({ isLoggedIn: false }, () => localStorage.clear());
+    // fill in this method for the local state exercises
   };
 
   render = () => (
-    <Mutation
-      mutation={LOGIN_USER}
-      onCompleted={({ login }) => {
-        localStorage.setItem('token', login);
-        this.setState({ isLoggedIn: true });
-      }}
-    >
-      {login => (
-        <Form
-          login={login}
-          logout={this.logout}
-          isLoggedIn={this.state.isLoggedIn}
-        />
-      )}
+    <Mutation mutation={LOGIN_USER}>
+      {login => <Form login={login} logout={this.logout} isLoggedIn={false} />}
     </Mutation>
   );
 }
 
 const styles = {
-  container: { marginBottom: 16, width: '100%', textAlign: 'right' },
+  container: { marginBottom: 16, width: "100%", textAlign: "right" }
 };
