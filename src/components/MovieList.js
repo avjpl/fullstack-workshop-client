@@ -17,12 +17,12 @@ Advanced Queries:
 3. Extra Credit: The GET_LIKED_MOVIES query should always make a network request after serving cached data first. Look in the Apollo docs to learn how to set the query's fetchPolicy.
 */
 
-import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import React, { Component } from "react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 
-import MovieTile from './MovieTile';
-import Filter from './Filter';
+import MovieTile from "./MovieTile";
+import Filter from "./Filter";
 
 const MovieInfoFragment = gql`
   fragment MovieInfo on Movie {
@@ -60,28 +60,28 @@ export const GET_LIKED_MOVIES = gql`
 `;
 
 export default class MovieList extends Component {
-  state = { sort: 'POPULARITY' };
+  state = { sort: "POPULARITY" };
 
   onFilterChange = sort => this.setState({ sort });
 
   render = () => {
     return (
       <Query
-        query={this.state.sort !== 'LIKES' ? GET_MOVIES : GET_LIKED_MOVIES}
+        query={this.state.sort !== "LIKES" ? GET_MOVIES : GET_LIKED_MOVIES}
         fetchPolicy={
-          this.state.sort !== 'LIKES' ? 'cache-first' : 'cache-and-network'
+          this.state.sort !== "LIKES" ? "cache-first" : "cache-and-network"
         }
         variables={
-          this.state.sort !== 'LIKES'
+          this.state.sort !== "LIKES"
             ? {
                 page: 1,
-                sort: this.state.sort,
+                sort: this.state.sort
               }
             : {}
         }
       >
         {({ loading, error, data, fetchMore }) => {
-          if (loading) return 'Loading...';
+          if (loading) return "Loading...";
           if (error) return `${error}`;
 
           return (
@@ -93,7 +93,29 @@ export default class MovieList extends Component {
               {(data.movies || data.likes).map(movie => (
                 <MovieTile key={movie.id} movie={movie} />
               ))}
-              {data.movies && <button onClick={() => {}}>Load More</button>}
+              {data.movies && (
+                <button
+                  onClick={() => {
+                    const newPage = Math.floor(data.movies.length / 20) + 1;
+                    return fetchMore({
+                      variables: {
+                        page: newPage
+                      },
+                      updateQuery: (previous, { fetchMoreResult }) => {
+                        if (!fetchMoreResult) return previous;
+                        return {
+                          movies: [
+                            ...previous.movies,
+                            ...fetchMoreResult.movies
+                          ]
+                        };
+                      }
+                    });
+                  }}
+                >
+                  Load More
+                </button>
+              )}
             </div>
           );
         }}
