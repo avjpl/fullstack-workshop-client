@@ -51,7 +51,7 @@ const GET_MOVIES = gql`
 `;
 
 export const GET_LIKED_MOVIES = gql`
-  {
+  query GetLikedMovies {
     likes {
       ...MovieInfo
     }
@@ -74,7 +74,6 @@ export default class MovieList extends Component {
         variables={
           this.state.sort !== 'LIKES'
             ? {
-                showLikes: false,
                 page: 1,
                 sort: this.state.sort,
               }
