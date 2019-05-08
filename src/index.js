@@ -7,15 +7,7 @@ import "./index.css";
 import App from "./App";
 
 const client = new ApolloClient({
-  uri: "https://6v1lkoqpy3.sse.codesandbox.io/",
-  request: operation => {
-    operation.setContext(context => ({
-      headers: {
-        ...context.headers,
-        authorization: localStorage.getItem("token")
-      }
-    }));
-  }
+  uri: "https://6v1lkoqpy3.sse.codesandbox.io/"
 });
 
 ReactDOM.render(
