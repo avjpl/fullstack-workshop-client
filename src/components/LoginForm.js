@@ -1,16 +1,18 @@
 /*
-TODO: Creating a mutation component (part 1):
+TODO: Creating a Mutation component:
 
-1. Create a Mutation component to login the user.
-2. You should wrap the Form component in a mutation component and pass the login function down as a prop.
-3. Use the onCompleted prop on Mutation to set the user's token in localStorage
-*/
+1. Create a Mutation component to login the user by wrapping the Form component.
+2. Pass the login function down as a prop to Form.
+3. Use the onCompleted prop on Mutation to console.log whether the mutation completed successfully.
 
-/*
-TODO: Apollo Link State:
+Note: We will be wiring up the rest of the login workflow in the next exercises.
 
-1. Refactor the setState calls to client.writeData calls to set whether the user is logged in
-2. Query whether the user is logged in one level above the Mutation component.
+TODO: Local state management:
+
+1. Create an IS_LOGGED_IN query to determine whether the user is logged in.
+2. Wrap the login Mutation component with your Query component. Pass the result of the query to the Form component.
+3. When the login mutation completes, set the login token to localStorage under a key called "token". Write isLoggedIn to the cache directly.
+4. When the user logs out, fill in the this.logout method by writing isLoggedIn to the cache directly and clearing local storage.
 */
 
 import React, { Component } from 'react';
