@@ -15,7 +15,7 @@ TODO: Local state management:
 4. When the user logs out, fill in the this.logout method by writing isLoggedIn to the cache directly and clearing local storage.
 */
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 const Form = ({ isLoggedIn, login, logout }) => {
   let input = React.createRef();
@@ -30,7 +30,7 @@ const Form = ({ isLoggedIn, login, logout }) => {
             e.preventDefault();
             const email = input.current.value;
             login({
-              variables: { email },
+              variables: { email }
             });
           }}
         >
@@ -43,29 +43,21 @@ const Form = ({ isLoggedIn, login, logout }) => {
 };
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-
-    const token = localStorage.getItem('token');
-
-    this.state = {
-      isLoggedIn: !!token,
-    };
-  }
-
   logout = () => {
-    this.setState({ isLoggedIn: false }, () => localStorage.clear());
+    // fill in this method for the local state exercises
   };
 
   render = () => (
     <Form
-      login={() => {}}
+      login={() => {
+        // fill in this method for the local state exercises
+      }}
       logout={this.logout}
-      isLoggedIn={this.state.isLoggedIn}
+      isLoggedIn={false}
     />
   );
 }
 
 const styles = {
-  container: { marginBottom: 16, width: '100%', textAlign: 'right' },
+  container: { marginBottom: 16, width: "100%", textAlign: "right" }
 };
