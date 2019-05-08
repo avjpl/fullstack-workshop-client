@@ -24,39 +24,23 @@ import gql from "graphql-tag";
 import MovieTile from "./MovieTile";
 import Filter from "./Filter";
 
-const MovieInfoFragment = gql`
-  fragment MovieInfo on Movie {
-    id
-    title
-    isLiked
-    score
-    overview
-    popularity
-    poster
-    cast {
-      name
-      id
-      photo
-    }
-  }
-`;
-
 const GET_MOVIES = gql`
   query movieList($sort: SORT_TYPE, $page: Int!) {
     movies(sort: $sort, page: $page) {
-      ...MovieInfo
+      id
+      title
+      isLiked
+      score
+      overview
+      popularity
+      poster
+      cast {
+        name
+        id
+        photo
+      }
     }
   }
-  ${MovieInfoFragment}
-`;
-
-export const GET_LIKED_MOVIES = gql`
-  query GetLikedMovies {
-    likes {
-      ...MovieInfo
-    }
-  }
-  ${MovieInfoFragment}
 `;
 
 export default class MovieList extends Component {
@@ -67,18 +51,11 @@ export default class MovieList extends Component {
   render = () => {
     return (
       <Query
-        query={this.state.sort !== "LIKES" ? GET_MOVIES : GET_LIKED_MOVIES}
-        fetchPolicy={
-          this.state.sort !== "LIKES" ? "cache-first" : "cache-and-network"
-        }
-        variables={
-          this.state.sort !== "LIKES"
-            ? {
-                page: 1,
-                sort: this.state.sort
-              }
-            : {}
-        }
+        query={GET_MOVIES}
+        variables={{
+          page: 1,
+          sort: this.state.sort
+        }}
       >
         {({ loading, error, data, fetchMore }) => {
           if (loading) return "Loading...";
