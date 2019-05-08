@@ -1,18 +1,20 @@
 /*
 TODO: Creating Query components
 
-PART 1:
+Queries PART 1:
 1. Remove the seed data that's currently powering the MovieTile component
-2. Create queries - you should have two (GET_MOVIES) and (GET_LIKED_MOVIES).
-Both should share the same fields through a fragment.
-3. You can pass different queries into the Query component depending on state and props.
-Check out this.state.sort and the Filter component to choose your query based on what
-sorting option is selected. You can also pass in different variables to your queries depending on props and state.
+2. Create a query for GET_MOVIES.
+3. Check out this.state.sort and the Filter component to pass in the sort variable to your query. You will want to sort by POPULARITY and RELEASE_DATE.
 4. Handle loading and error state
 
-PART 2:
+Queries PART 2:
 1. Wire up the load more button so it uses fetchMore for pagination
 2. HINT: Each page has 20 items. This will help you when you calculate the next page number
+
+Advanced Queries:
+1. Create a query for GET_LIKED_MOVIES and use a fragment to share fields with the GET_MOVIES query.
+2. Use the value of this.state.sort to determine when to call the GET_LIKED_MOVIES query. Remember to check the schema to determine if the likes query has variables or not.
+3. Extra Credit: The GET_LIKED_MOVIES query should always make a network request after serving cached data first. Look in the Apollo docs to learn how to set the query's fetchPolicy.
 */
 
 import React, { Component } from 'react';
