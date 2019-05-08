@@ -6,16 +6,22 @@ TODO: Creating a Mutation component:
 3. Use the onCompleted prop on Mutation to console.log whether the mutation completed successfully.
 
 Note: We will be wiring up the rest of the login workflow in the next exercises.
+<<<<<<< HEAD
 
 TODO: Local state management:
 
+=======
+
+TODO: Local state management:
+
+>>>>>>> de062a0... Update LoginForm instructions
 1. Create an IS_LOGGED_IN query to determine whether the user is logged in.
 2. Wrap the login Mutation component with your Query component. Pass the result of the query to the Form component.
 3. When the login mutation completes, set the login token to localStorage under a key called "token". Write isLoggedIn to the cache directly.
 4. When the user logs out, fill in the this.logout method by writing isLoggedIn to the cache directly and clearing local storage.
 */
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 const Form = ({ isLoggedIn, login, logout }) => {
   let input = React.createRef();
@@ -30,7 +36,7 @@ const Form = ({ isLoggedIn, login, logout }) => {
             e.preventDefault();
             const email = input.current.value;
             login({
-              variables: { email },
+              variables: { email }
             });
           }}
         >
@@ -46,10 +52,10 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     this.state = {
-      isLoggedIn: !!token,
+      isLoggedIn: !!token
     };
   }
 
@@ -67,5 +73,5 @@ export default class Login extends Component {
 }
 
 const styles = {
-  container: { marginBottom: 16, width: '100%', textAlign: 'right' },
+  container: { marginBottom: 16, width: "100%", textAlign: "right" }
 };
