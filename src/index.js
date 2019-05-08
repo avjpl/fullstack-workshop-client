@@ -21,7 +21,7 @@ const resolvers = {
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({
-  uri: 'https://fullstack-workshop-server.glitch.me/graphql',
+  uri: 'https://6v1lkoqpy3.sse.codesandbox.io/',
   cache,
   request: operation => {
     operation.setContext(context => ({
